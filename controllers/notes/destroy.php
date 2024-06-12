@@ -1,20 +1,22 @@
 <?php
 
+// $config = require "config.php";
+// $db = new Database($config["database"]);
+
 $db = App::resolve("Database");
 
-$heading = 'Note';
 $currentUserId = 2;
 
-
-// Athorizáció miatt van a kódismétlés
+// Authorizáció miatt van a kódismétlés
 $note = $db->query("select * from notes where id = :id", [
-	"id" => $_GET["id"],
+	"id" => $_POST["id"],
 ])->findOrFail();
-
 
 authorize($note["user_id"] === $currentUserId);
 
+$db->query("DELETE from notes where id = :id", [
+	"id" => $_POST["id"]
+]);
 
-require 'views/notes/show.view.php';
 header("location: /phppracticexampp/notes");
 exit();

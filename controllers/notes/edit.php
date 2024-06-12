@@ -1,8 +1,9 @@
 <?php
 
+$heading = "Edit note";
+
 $db = App::resolve("Database");
 
-$heading = 'Note';
 $currentUserId = 2;
 
 
@@ -14,7 +15,4 @@ $note = $db->query("select * from notes where id = :id", [
 
 authorize($note["user_id"] === $currentUserId);
 
-
-require 'views/notes/show.view.php';
-header("location: /phppracticexampp/notes");
-exit();
+require "views/notes/edit.view.php";
