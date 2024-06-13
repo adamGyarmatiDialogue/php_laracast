@@ -20,7 +20,15 @@ $routes = require "./routes.php";
 $uri = parse_url($_SERVER['REQUEST_URI'])["path"];
 $method = isset($_POST["_method"]) ? $_POST["_method"] : $_SERVER["REQUEST_METHOD"];
 
+try {
+	$router->route($uri, $method);
+} catch (ValidationException $exception) {
+	Session::flash("errors", $exception->errors);
+	Session::flash("old", $exception->old);
 
-$router->route($uri, $method);
+	// redirect("/phppracticexampp/login");
+	redirect($router->previousUrl());
+}
+
 
 Session::unflash();
