@@ -68,7 +68,7 @@ class Router
 
 				Middleware::resolve($route["middleware"]);
 
-				return require $route["controller"];
+				return require "./http/controllers/" . $route["controller"];
 			}
 		}
 

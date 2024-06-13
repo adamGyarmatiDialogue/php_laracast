@@ -1,5 +1,6 @@
 <?php
 
+
 require "Validator.php";
 
 $heading = "Create note";
